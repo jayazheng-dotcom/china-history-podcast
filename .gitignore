@@ -1,0 +1,15 @@
+# 音频文件（已上传到 GitHub Release，本地不需要 git 跟踪）
+audio/*.m4a
+audio/*.mp3
+audio/*.tmp*
+
+# 状态文件（本地运行状态）
+state.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# macOS
+.DS_Store

@@ -1,0 +1,49 @@
+# 每日中国通史播客 - 配置文件
+
+# GitHub 仓库信息
+github:
+  owner: jayazheng-dotcom
+  repo: china-history-podcast
+
+# 播客元信息
+podcast:
+  title: "每日中国通史"
+  subtitle: "安州牧《中国通史》音频版 · 每天20分钟听懂中国历史"
+  author: "安州牧"
+  email: "jayazheng@tencent.com"
+  description: |
+    从西汉到北洋，160集完整中国通史。每日更新一集，通勤路上听历史。
+    原视频由B站UP主安州牧制作，本播客仅提取音频供个人学习使用。
+  language: "zh-cn"
+  category: "History"
+  explicit: false
+  image: "cover.jpg"  # 播客封面（需上传到 GitHub Pages）
+
+# 下载设置
+download:
+  # 音频格式：m4a (AAC) 适合播客
+  format: "m4a"
+  # 音频质量（ffmpeg -b:a）
+  bitrate: "128k"
+  # yt-dlp 下载格式
+  yt_dlp_format: "bestaudio/best"
+  # 下载重试次数
+  max_retries: 3
+  # 并发下载数
+  concurrent_downloads: 1
+
+# 发布计划
+schedule:
+  # 每天发布时间（ISO 8601）
+  publish_time: "21:30"
+  # 时区
+  timezone: "Asia/Shanghai"
+  # 起始集数（从第几集开始）
+  start_episode: 1
+
+# 路径设置
+paths:
+  audio_dir: "audio"
+  rss_dir: "rss"
+  episodes_file: "episodes.json"
+  state_file: "state.json"
