@@ -19,7 +19,7 @@ import yaml
 # ─── 项目根目录 ───
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 AUDIO_DIR = PROJECT_DIR / "audio"
-RSS_DIR = PROJECT_DIR / "rss"
+RSS_DIR = PROJECT_DIR / "docs"
 EPISODES_FILE = PROJECT_DIR / "episodes.json"
 STATE_FILE = PROJECT_DIR / "state.json"
 CONFIG_FILE = PROJECT_DIR / "config.yaml"
@@ -249,13 +249,11 @@ def deploy_rss_to_github_pages(config):
     owner = config["github"]["owner"]
     repo = config["github"]["repo"]
 
-    # 提交 rss 目录到 main 分支
-    subprocess.run(["git", "add", "rss/"], cwd=str(PROJECT_DIR), capture_output=True)
+    # 提交 docs 目录到 main 分支
+    subprocess.run(["git", "add", "docs/"], cwd=str(PROJECT_DIR), capture_output=True)
     subprocess.run(["git", "commit", "-m", "update RSS feed"], cwd=str(PROJECT_DIR), capture_output=True)
     subprocess.run(["git", "push", "origin", "main"], cwd=str(PROJECT_DIR), capture_output=True)
 
-    # 确保 GitHub Pages 已启用（从 main 分支的 /rss 目录）
-    # 只需执行一次
     print("[部署] RSS 已推送到 GitHub Pages")
 
 
