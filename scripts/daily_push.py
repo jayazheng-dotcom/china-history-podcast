@@ -321,6 +321,9 @@ def publish_episode(episode_idx, config, episodes, state, skip_download=False):
     # 5. 更新 RSS
     generate_rss(state["published"], config)
 
+    # 6. 自动推送到 GitHub Pages
+    deploy_rss_to_github_pages(config)
+
     print(f"  [发布] 第{ep['idx']}集发布成功!")
     return True
 
