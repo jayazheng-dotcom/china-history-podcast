@@ -134,48 +134,23 @@ def get_audio_duration(path):
     return 0
 
 
-def upload_to_github_release(audio_path, episode_idx, config):
-    """上传音频文件到 GitHub Release，返回下载 URL"""
+def upload_to_github_pages(audio_path, episode_idx, config):
+    """将音频文件复制到 docs/audio/ 目录，通过 GitHub Pages 提供直链"""
     owner = config["github"]["owner"]
     repo = config["github"]["repo"]
-    tag = f"ep{episode_idx:03d}"
-    title = f"第{episode_idx}集"
+    pages_audio_dir = RSS_DIR / "audio"
+    pages_audio_dir.mkdir(exist_ok=True)
 
-    # 检查 release 是否已存在
-    result = subprocess.run(
-        ["gh", "release", "view", tag, "--repo", f"{owner}/{repo}", "--json", "tagName"],
-        capture_output=True, text=True,
-    )
+    dest = pages_audio_dir / audio_path.name
+    if dest.exists() and dest.stat().st_size == audio_path.stat().st_size:
+        print(f"  [跳过] {dest.name} 已在 Pages 目录")
+    else:
+        import shutil
+        shutil.copy2(str(audio_path), str(dest))
+        print(f"  [复制] {audio_path.name} → docs/audio/")
 
-    if result.returncode != 0:
-        # 创建新 release
-        print(f"  [Release] 创建 {tag}")
-        result = subprocess.run(
-            [
-                "gh", "release", "create", tag,
-                "--repo", f"{owner}/{repo}",
-                "--title", title,
-                "--notes", f"第{episode_idx}集音频",
-            ],
-            capture_output=True, text=True,
-        )
-        if result.returncode != 0:
-            print(f"  [错误] 创建 release 失败: {result.stderr}")
-            return None
-
-    # 上传音频文件
-    print(f"  [上传] {audio_path.name} → {tag}")
-    result = subprocess.run(
-        ["gh", "release", "upload", tag, str(audio_path),
-         "--repo", f"{owner}/{repo}", "--clobber"],
-        capture_output=True, text=True,
-    )
-    if result.returncode != 0:
-        print(f"  [错误] 上传失败: {result.stderr}")
-        return None
-
-    # 返回下载 URL
-    return f"https://github.com/{owner}/{repo}/releases/download/{tag}/{audio_path.name}"
+    # GitHub Pages 直链 URL（无重定向，正确的 MIME type）
+    return f"https://{owner}.github.io/{repo}/audio/{audio_path.name}"
 
 
 def generate_rss(published_episodes, config):
@@ -293,8 +268,8 @@ def publish_episode(episode_idx, config, episodes, state, skip_download=False):
         duration_sec = ep["duration"]  # 回退到 API 数据
     file_size = audio_path.stat().st_size
 
-    # 3. 上传到 GitHub Release
-    audio_url = upload_to_github_release(audio_path, ep["idx"], config)
+    # 3. 复制到 GitHub Pages 音频目录
+    audio_url = upload_to_github_pages(audio_path, ep["idx"], config)
     if audio_url is None:
         return False
 
