@@ -20,6 +20,19 @@
     <itunes:image href="https://jayazheng-dotcom.github.io/china-history-podcast/cover.jpg"/>
     <atom:link href="https://jayazheng-dotcom.github.io/china-history-podcast/podcast.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>从何时起，我们对这里称&quot;自古以来&quot;！</title>
+      <itunes:subtitle>西汉</itunes:subtitle>
+      <description>安州牧《中国通史》第2集 - 从何时起，我们对这里称&quot;自古以来&quot;！
+系列：西汉
+时长：30分钟
+原视频：https://www.bilibili.com/video/BV1KgKNePEmL</description>
+      <enclosure url="https://jayazheng-dotcom.github.io/china-history-podcast/audio/ep002.m4a" length="30301991" type="audio/mp4"/>
+      <guid>https://jayazheng-dotcom.github.io/china-history-podcast/audio/ep002.m4a</guid>
+      <pubDate>Tue, 02 Jun 2026 09:37:30 +0800</pubDate>
+      <itunes:duration>1782</itunes:duration>
+      <itunes:explicit>no</itunes:explicit>
+    </item>
+    <item>
       <title>【全盘解析】大汉限时外挂为何能一路超神？</title>
       <itunes:subtitle>西汉</itunes:subtitle>
       <description>安州牧《中国通史》第1集 - 【全盘解析】大汉限时外挂为何能一路超神？
